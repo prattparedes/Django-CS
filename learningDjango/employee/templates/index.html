@@ -96,6 +96,7 @@
           <h1 class="fw-light">Employees</h1>
           <p class="lead text-muted">List of all Employees in the Company</p>
         </div>
+        <a href="http://127.0.0.1:8000/employee/create/">Create</a>
       </div>
     </section>
 
@@ -112,6 +113,8 @@
                   <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                    <a type="button" class="btn btn-sm btn-outline-secondary" href="delete/{{x.id}}">Delete</a>
+                    <a type="button" class="btn btn-sm btn-outline-secondary" href="update/{{x.id}}">Update</a>
                   </div>
                   <small class="text-muted">9 mins</small>
                 </div>
