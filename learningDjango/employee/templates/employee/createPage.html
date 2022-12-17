@@ -1,8 +1,11 @@
+{% extends 'main.html' %}
+{%block content%}
 <h2>Create Employee</h2>
 
 <form action="createData/" method="post">
     {% csrf_token %}
     Name: <input name="name">
     Title: <input name="title">
-    <input type="submit" value="create" />
+    <input type="submit" value="create" class="btn btn-primary"/>
 </form>
+{%endblock%}

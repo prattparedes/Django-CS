@@ -3,16 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from .models import Employee
+from django.db.models import Q
 
 # Create your views here.
 
 
 def index(request):
-    myEmployees = Employee.objects.all().values()
+    # myEmployees = Employee.objects.filter(title__startswith='M')
+    # myEmployees = Employee.objects.filter(Q(title='CEO') | Q(title='Manager'))
+    # myEmployees = Employee.objects.filter(title__startswith='M')
+    # myEmployees = Employee.objects.filter(title__exact='M')
+    # myEmployees = Employee.objects.filter(title__endswith='r')
+    # myEmployees = Employee.objects.filter(title__contains='e')
+    # myEmployees = Employee.objects.all().order_by('name')
+    myEmployees = Employee.objects.all().order_by('-name')
     # output = ''
     # for x in myEmployees:
     #     output += x['name']
-    template = loader.get_template('index.html')
+    template = loader.get_template('employee/index.html')
     context = {
         'myEmployees': myEmployees
     }
@@ -20,7 +28,7 @@ def index(request):
 
 
 def create(request):
-    template = loader.get_template('createPage.html')
+    template = loader.get_template('employee/createPage.html')
     return HttpResponse(template.render({}, request))
 
 
@@ -40,7 +48,7 @@ def delete(request, id):
 
 def update(request, id):
     updateEmployee = Employee.objects.get(id=id)
-    template = loader.get_template('updatePage.html')
+    template = loader.get_template('employee/updatePage.html')
     context = {
         'Employee': updateEmployee
     }
