@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-from .models import Employee
+from .models import Employee, BlogPosts
 from django.db.models import Q
 
 # Create your views here.
@@ -37,13 +37,13 @@ def createData(request):
     data2 = request.POST['title']
     newEmployee = Employee(name=data1, title=data2)
     newEmployee.save()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('employee'))
 
 
 def delete(request, id):
     deleteEmployee = Employee.objects.get(id=id)
     deleteEmployee.delete()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('employee'))
 
 
 def update(request, id):
@@ -61,10 +61,14 @@ def updateData(request, id):
     updateEmployee.name = name
     updateEmployee.title = title
     updateEmployee.save()
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('employee'))
 
 def blog(request):
-    
+    posts = BlogPosts.objects.all()
+    featuredPost = BlogPosts.objects.filter(featured=True)
     template = loader.get_template('employee/blog.html')
-
-    return HttpResponse(template.render(request))
+    context = {
+        'posts': posts,
+        'featuredPost': featuredPost
+    }
+    return HttpResponse(template.render(context,request))
