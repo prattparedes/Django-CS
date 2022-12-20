@@ -10,6 +10,15 @@ class Employee(models.Model):
     def __str__(self):
         return f"{self.name},{self.title}"
 
+class BlogPosts(models.Model):
+    title = models.CharField(max_length=255, null=False, blank=False)
+    desc = models.TextField(null=False, blank=False)
+    featured = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"{self.title}"
+
+
 # create Table 'employee_employee' (
 #     'id' Int NOT NULL PRIMARY KEY AUTOINCREMENT,
 #     'name': varchar(255) NOT NULL,
